@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<map>
+  <room>
+    <name>Entrance</name>
+    <description>You are at the start of a hall way going north. There's a door to the east, but it's locked. You see a chest.</description>
+    <container>lock1</container>
+    <container>chest</container>
+    <trigger>
+      <command>e</command>
+      <type>permanent</type>
+      <condition>
+        <object>lock1</object>
+        <status>locked</status>
+      </condition>
+      <print>door is magically locked</print>
+    </trigger>
+    <trigger>
+      <command>open chest</command>
+      <type>permanent</type>
+      <condition>
+        <object>chest</object>
+        <status>locked</status>
+      </condition>
+      <print>chest seems to be locked by some magical seal</print>
+    </trigger>
+    <border>
+      <direction>north</direction>
+      <name>Corner</name>
+    </border>
+    <border>
+      <direction>east</direction>
+      <name>Exit</name>
+    </border>
+  </room>
+  <room>
+    <name>Corner</name>
+    <description>You've reached a turn in the hall, which turns east now. There's a sword placed on the wall.</description>
+    <item>sword</item>
+    <border>
+      <direction>east</direction>
+      <name>Deadend</name>
+    </border>
+    <border>
+      <direction>south</direction>
+      <name>Entrance</name>
+    </border>
+  </room>
+  <room>
+    <name>Deadend</name>
+    <description>You've reached the end of the hall. You come face to face with a dragon! There's a door to the south</description>
+    <container>lock2</container>
+    <creature>dragon</creature>
+    <trigger>
+      <command>s</command>
+      <type>permanent</type>
+      <condition>
+        <object>lock2</object>
+        <status>locked</status>
+      </condition>
+      <print>door seems to be locked by the dragon's magic!</print>
+    </trigger>
+    <border>
+      <direction>south</direction>
+      <name>Exit</name>
+    </border>
+    <border>
+      <direction>west</direction>
+      <name>Corner</name>
+    </border>
+  </room>
+  <room>
+    <type>exit</type>
+    <name>Exit</name>
+    <description>You see the the exit!</description>
+    <trigger>
+      <command>open exit</command>
+      <type>permanent</type>
+      <condition>
+        <has>no</has>
+        <object>treasure</object>
+        <owner>inventory</owner>
+      </condition>
+      <print>You can't leave without the treasure!</print>
+    </trigger>
+    <border>
+      <direction>north</direction>
+      <name>Deadend</name>
+    </border>
+    <border>
+      <direction>west</direction>
+      <name>Entrance</name>
+    </border>
+  </room>
+  <item>
+    <name>sword</name>
+    <writing>a sword with great potential, just try and turn it on!</writing>
+    <status>normal</status>
+    <turnon>
+      <print>the sword has been imbued with fire!</print>
+      <action>Update sword to flaming</action>
+    </turnon>
+  </item>
+  <item>
+    <name>treasure</name>
+    <writing>This must be worth a lot!</writing>
+  </item>
+  <container>
+    <name>lock1</name>
+    <status>locked</status>
+  </container>
+  <container>
+    <name>lock2</name>
+    <status>locked</status>
+  </container>
+  <container>
+    <name>chest</name>
+    <status>locked</status>
+    <item>treasure</item>
+  </container>
+  <creature>
+    <name>dragon</name>
+    <vulnerability>sword</vulnerability>
+    <attack>
+      <condition>
+        <object>sword</object>
+        <status>flaming</status>
+      </condition>
+      <print>You've defeated the dragon! The dragon's magic is also gone, so maybe you should go back and check on some previously sealed objects.</print>
+      <action>Update lock1 to unlocked</action>
+      <action>Update lock2 to unlocked</action>
+      <action>Update chest to unlocked</action>
+      <action>Delete dragon</action>
+    </attack>
+    </creature>
+</map>

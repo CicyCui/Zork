@@ -1,0 +1,134 @@
+		while(itr.hasNext()){
+			//System.out.println(curr);
+			//System.out.println("Ele: "+curr);
+			//if(curr.startsWith("START")){
+			//	tmpPile.push(curr);
+			//}else if(curr.startsWith("END")){
+			//	tmpPile.pop();
+			//}
+			
+			if(curr.equals("STARTname") ){//&& tmpPile.size() > 2 && tmpPile.elementAt(tmpPile.size()-2).equals("STARTroom")){
+				curr = itr.next();
+				System.out.println(curr);
+				setName(curr);
+				curr = itr.next();
+				System.out.println(curr);
+				//System.out.println("Current context: "+tmpPile.elementAt(tmpPile.size()-2));
+				//System.out.println("Room: "+curr);
+			}
+			if(curr.equals( "STARTtype") ){//&& tmpPile.size() > 2 && tmpPile.elementAt(tmpPile.size()-2).equals("STARTroom") ){
+				curr = itr.next();
+				System.out.println(curr);
+				type = curr;
+				curr = itr.next();
+				System.out.println(curr);
+			}
+			if(curr.equals("STARTdescription")){// && tmpPile.size() > 2 && tmpPile.elementAt(tmpPile.size()-2).equals("STARTroom") ){
+				curr = itr.next();
+				System.out.println(curr);
+				super.setDescription(curr);
+				curr = itr.next();
+				System.out.println(curr);
+			}
+			if(curr.equals("STARTtrigger") ){//&& tmpPile.size() > 2 && tmpPile.elementAt(tmpPile.size()-2).equals( "STARTroom")){
+				trigger = new Trigger();
+				while(curr != "ENDtrigger"  && itr.hasNext()){
+					tmpList.add(curr);
+					curr = itr.next();
+					System.out.println(curr);
+				}
+				if(trigger != null && curr.equals("ENDtrigger")){
+					trigger.configure(tmpList);
+					tmpList.clear();
+				}			
+			}
+
+			if(curr.equals("STARTborder")){
+				btmp = new Border();
+				while(curr != "ENDborder" && itr.hasNext()){
+					tmpList.add(curr);
+					last = curr;
+					curr = itr.next();		
+					System.out.println(curr);
+				}
+				if(btmp != null && curr.equals("ENDborder")){
+					System.out.println("border: "+tmpList);
+					btmp.configure(tmpList);
+					tmpList.clear();
+				}	
+			}
+			if(curr.equals("STARTcontainer")){
+				ctmp = new Container();
+				while(curr != "ENDcontainer" && itr.hasNext()){
+					tmpList.add(curr);
+					last = curr;
+					curr = itr.next();	
+					System.out.println(curr);
+				}
+				if(ctmp!= null && curr.equals("ENDcontainer")){
+					System.out.println("container: "+tmpList);
+					ctmp.configure(tmpList);
+					tmpList.clear();
+				}	
+			}
+			if(curr.equals("STARTitem")){
+				itmp = new Item();
+				while(curr != "ENDitem" && itr.hasNext()){
+					tmpList.add(curr);
+					last = curr;
+					curr = itr.next();	
+					System.out.println(curr);
+				}
+				if(itmp != null && curr.equals("ENDitem")){
+					System.out.println("item: "+tmpList);
+					itmp.configure(tmpList);
+					tmpList.clear();
+				}	
+			}
+			if(curr.equals("STARTcreature")){
+				crtmp = new Creature();
+				while(curr != "ENDcreature" && itr.hasNext()){
+					tmpList.add(curr);
+					last = curr;
+					curr = itr.next();	
+					System.out.println(curr);
+				}
+				if(crtmp != null && curr.equals("ENDcreature")){
+					System.out.println("creature: "+ tmpList);
+					crtmp.configure(tmpList);
+					tmpList.clear();
+				}	
+			}
+			
+			else if(itr.hasNext()){
+				curr = itr.next();
+			}
+			/*else if(curr.equals("ENDborder") && btmp != null){
+				tmpList.add(curr);
+				System.out.println("border: "+tmpList);
+				btmp.configure(tmpList);
+				border.add(btmp);
+				tmpList.clear();
+			}else if(curr.equals("ENDcontainer") && ctmp != null){
+				tmpList.add(curr);
+				System.out.println("container: "+tmpList);
+				ctmp.configure(tmpList);
+				containers.add(ctmp);
+				tmpList.clear();
+			}else if(curr.equals("ENDitem") && itmp != null){
+				tmpList.add(curr);
+				System.out.println("item: "+tmpList);
+				itmp.configure(tmpList);
+				items.add(itmp);
+				tmpList.clear();
+			}else if(curr.equals("ENDcreature") && crtmp != null){
+				tmpList.add(curr);
+				System.out.println("creature: "+ tmpList);
+				crtmp.configure(tmpList);
+				creatures.add(crtmp);
+				tmpList.clear();
+			}else if( tmpPile.size() >= 2 && !(tmpPile.elementAt(tmpPile.size()-2).equals("STARTmap") && !(tmpPile.elementAt(tmpPile.size()-2).equals("STARTroom")))){
+				tmpList.add(curr);
+			}*/
+		}
+		//System.out.println("Configuring Room: "+name+"\n"+description);
